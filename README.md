@@ -1,4 +1,5 @@
-import streamlitas st 
+pip install -r requirements.txt
+
 pillow numpy
 meu_reconhecedor/
 └── app.py
