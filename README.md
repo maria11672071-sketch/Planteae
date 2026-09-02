@@ -1,4 +1,4 @@
-# Planteae
+# app.py
 pip install streamlit tensorflow pillow numpy
 
 meu_reconhecedor/
