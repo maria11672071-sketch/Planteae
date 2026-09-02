@@ -1,4 +1,5 @@
-pip install streamlit tensorflow pillow numpy
+import streamlitas st 
+pillow numpy
 meu_reconhecedor/
 └── app.py
 import streamlit as st
