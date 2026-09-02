@@ -1,16 +1,16 @@
-pip install -r requirements.txt
-streamlit run app.py
 import streamlit as st
 import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
 
 # Configuração da página do Streamlit
-st.set_page_config(page_title="Reconhecedor de Plantas BR", page_icon="🌿", layout="centered")
+st.set_page_config(
+    page_title="Reconhecedor de Plantas BR", 
+    page_icon="🌿", 
+    layout="centered"
+)
 
 # --- Banco de Dados de Características ---
-# Em um sistema real, isso viria de um banco de dados ou do modelo.
-# Definimos aqui para destacar as características como solicitado.
 PLANT_DATABASE = {
     "Rosa do Deserto (Adenium)": {
         "scientific_name": "Adenium obesum",
@@ -47,17 +47,15 @@ PLANT_DATABASE = {
     }
 }
 
-# --- Carregamento do Modelo Pré-treinado (Simulação) ---
-@st.cache_resource # Cache para não recarregar a cada interação
+# --- Carregamento do Modelo Pré-treinado ---
+@st.cache_resource
 def load_base_model():
-    # Usamos MobileNetV2 pre-treinado na ImageNet para extração de características genéricas.
-    # Em um app real, este seria o seu modelo final ajustado.
     model = tf.keras.applications.MobileNetV2(weights="imagenet")
     return model
 
-# --- Função de Pré-processamento e Reconhecimento (Simulação) ---
+# --- Função de Pré-processamento e Reconhecimento ---
 def predict_plant(image, model):
-    # 1. Redimensionar e pré-processar a imagem para o MobileNet
+    # Redimensionar e pré-processar a imagem para o MobileNet
     size = (224, 224)
     image = ImageOps.fit(image, size, Image.Resampling.LANCZOS)
     image_array = np.asarray(image)
@@ -65,16 +63,10 @@ def predict_plant(image, model):
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
     data[0] = normalized_image_array
 
-    # 2. Executar a predição (com o modelo genérico)
+    # Executar a predição
     prediction = model.predict(data)
     
-    # 3. --- LÓGICA DE SIMULAÇÃO PARA O EXEMPLO ---
-    # Como não temos o modelo específico treinado, simulamos um resultado.
-    # Em um app real, aqui você pegaria a classe de maior probabilidade.
-    
-    # Vamos usar um índice aleatório baseado nas classes do MobileNet 
-    # ou fixar um para teste, para fins de interface.
-    # Neste exemplo, simulamos que ele reconheceu uma das 3 plantas com base no nome.
+    # Simular resultado para o protótipo
     import random
     class_names = list(PLANT_DATABASE.keys())
     recognized_class = random.choice(class_names)
@@ -88,9 +80,9 @@ st.markdown("---")
 
 st.markdown("""
 ### Como funciona:
-1.  **Tire uma foto** clara da sua planta (flor ou planta inteira).
-2.  **Faça o upload** da imagem abaixo.
-3.  Nosso sistema tentará identificar se é uma **Rosa do Deserto**, **Ipê** ou **Lírio** e destacará suas características principais!
+1. **Tire uma foto** clara da sua planta (flor ou planta inteira).
+2. **Faça o upload** da imagem abaixo.
+3. Nosso sistema tentará identificar se é uma **Rosa do Deserto**, **Ipê** ou **Lírio** e destacará suas características principais!
 """)
 
 uploaded_file = st.file_uploader("Escolha uma imagem da planta...", type=["jpg", "jpeg", "png"])
@@ -132,5 +124,3 @@ if uploaded_file is not None:
         
         st.markdown("---")
         st.info("Aviso: Este é um protótipo com reconhecimento simulado. Em um ambiente de produção, um modelo de Deep Learning especificamente treinado nestas espécies seria necessário.")
-
-ImageOps.fit
