@@ -1,5 +1,6 @@
-pip
-streamlit run app.py
+pip install streamlit tensorflow pillow numpy
+meu_reconhecedor/
+└── app.py
 import streamlit as st
 import tensorflow as tf
 from PIL import Image, ImageOps
@@ -133,4 +134,6 @@ if uploaded_file is not None:
         st.markdown("---")
         st.info("Aviso: Este é um protótipo com reconhecimento simulado. Em um ambiente de produção, um modelo de Deep Learning especificamente treinado nestas espécies seria necessário.")
 
-requirements.txtapp.py
+streamlit run app.py
+pip install streamlit tensorflow pillow numpy
+streamlit run app.py
